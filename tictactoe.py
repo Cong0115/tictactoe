@@ -93,7 +93,7 @@ def getaimove(board):
             return (random.randint(0, 1)*2, random.randint(0, 1)*2)
         else:
             # otherwise go in center
-            return (1, 1)           
+            return (1, 1)
     # 5. do we have a fork move (i.e. a move that results in 2 winning moves for us)?
     move = getforkmove(board)
     if len(move) > 0:
@@ -163,7 +163,7 @@ def gameloop(event):
     global gameover
     global playerwin, aiwin, draw
     cv.unbind('<Button-1>')
-    label2['text']=''
+    label2['text'] = ''
     if event.x < 175:
         row = 0
     elif event.x < 325:
@@ -190,8 +190,8 @@ def gameloop(event):
                 sum(board[:, 0]) == 3 or \
                 sum(board[:, 1]) == 3 or \
                 sum(board[:, 2]) == 3 or \
-                sum(board[i,i] for i in range(3)) == 3 or \
-                sum(board[i,2-i] for i in range(3)) == 3:
+                sum(board[i, i] for i in range(3)) == 3 or \
+                sum(board[i, 2-i] for i in range(3)) == 3:
             playerwin += 1
             label1['text'] = 'Win/Lose/Draw: {}/{}/{}'.format(
                 playerwin, aiwin, draw)
@@ -206,9 +206,10 @@ def gameloop(event):
             gameover = True
         else:
             # get computer move
-            ## this part doesn't work as expected:
+            ##
             label2['text'] = 'Computer thinking...'
-            time.sleep(0.5)
+            root.update_idletasks()
+            root.after(1000)
             label2['text'] = ''
             ##
             move = getaimove(board)
@@ -223,8 +224,8 @@ def gameloop(event):
                     sum(board[:, 0]) == 12 or \
                     sum(board[:, 1]) == 12 or \
                     sum(board[:, 2]) == 12 or \
-                    sum(board[i,i] for i in range(3)) == 12 or \
-                    sum(board[i,2-i] for i in range(3)) == 12:
+                    sum(board[i, i] for i in range(3)) == 12 or \
+                    sum(board[i, 2-i] for i in range(3)) == 12:
                 aiwin += 1
                 label1['text'] = 'Win/Lose/Draw: {}/{}/{}'.format(
                     playerwin, aiwin, draw)
